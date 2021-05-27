@@ -57,8 +57,8 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 102.0,
-                left: 32.0,
+                top: size.height * 0.13,
+                left: size.width * 0.09,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -91,17 +91,18 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                bottom: 86,
-                child: Container(
-                  width: size.width * 0.45,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(18),
-                    child: FlatButton(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-                      color: Color(0xfff8f8fa),
-                      onPressed: () {},
-                      child: Text("등교하기", style: btnTxtStyle),
+                bottom: size.height * 0.11,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: Text(
+                    '등교하기',
+                    style: btnTxtStyle,
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xfff8f8fa),
+                    padding: EdgeInsets.symmetric(vertical: 17, horizontal: 40),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12), // <-- Radius
                     ),
                   ),
                 ),
