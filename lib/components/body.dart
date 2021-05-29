@@ -34,14 +34,23 @@ class _Body extends State<Body> {
     letterSpacing: -0.5,
   );
 
-  // static const MethodChannel _channel = const MethodChannel('com.sad.verysad');
+  static const platform = const MethodChannel('samples.flutter.dev/battery');
 
-  // String _platformVersion = 'Unknown';
+  String _batteryLevel = "Unknown";
 
-  // Future<String> getPlatformVersion() async {
-  //   final String version = await _channel.invokeMethod('getPlatformVersion');
-  //   return version;
-  // }
+  Future<void> _getBatteryLevel() async {
+    String batteryLevel;
+    try {
+      final int result = await platform.invokeMethod("getBatteryLevel");
+      batteryLevel = "$result%";
+    } on PlatformException catch(e) {
+      batteryLevel = "${e.message}";
+    }
+
+    setState(() {
+      _batteryLevel = batteryLevel;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,17 +96,10 @@ class _Body extends State<Body> {
           Positioned(
             bottom: size.height * 0.11,
             child: ElevatedButton(
-              onPressed: () {},
-              // async {
-              //   String result = await getPlatformVersion();
-              //   setState(
-              //     () {
-              //       _platformVersion = result;
-              //     },
-
+              onPressed: _getBatteryLevel,
               child: Text(
-                '등교하기',
-                // _platformVersion,
+                // '등교하기',
+                _batteryLevel,
                 style: btnTxtStyle,
               ),
               style: ElevatedButton.styleFrom(
