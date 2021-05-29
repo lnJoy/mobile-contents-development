@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:verysad/components/background.dart';
+import 'package:verysad/Screens/Login/EBSLogin/ebslogin_screen.dart';
+import 'package:verysad/Screens/Welcome/components/background.dart';
 
 class Body extends StatefulWidget {
   _Body createState() => _Body();
@@ -43,7 +44,7 @@ class _Body extends State<Body> {
     try {
       final int result = await platform.invokeMethod("getBatteryLevel");
       batteryLevel = "$result%";
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       batteryLevel = "${e.message}";
     }
 
@@ -96,10 +97,17 @@ class _Body extends State<Body> {
           Positioned(
             bottom: size.height * 0.11,
             child: ElevatedButton(
-              onPressed: _getBatteryLevel,
+              // onPressed: _getBatteryLevel,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return EBSLoginScreen();
+                  }),
+                );
+              },
               child: Text(
-                // '등교하기',
-                _batteryLevel,
+                '등교하기',
                 style: btnTxtStyle,
               ),
               style: ElevatedButton.styleFrom(

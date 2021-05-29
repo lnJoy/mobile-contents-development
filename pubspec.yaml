@@ -48,6 +48,8 @@ flutter:
     - assets/images/
     - assets/images/body/
     - assets/images/school/
+    - assets/images/wave/
+    - assets/images/mini_school/
   #   - images/a_dzt_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

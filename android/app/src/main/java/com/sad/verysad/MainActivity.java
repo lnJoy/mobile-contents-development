@@ -15,7 +15,7 @@ import android.os.Bundle;
 
 
 public class MainActivity extends FlutterActivity {
-    private static final String CHANNEL = "samples.flutter.dev/battery";
+    private static final String CHANNEL = "mobile.contest.develoment/ebslogin";
 
     @Override
     public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
@@ -24,13 +24,13 @@ public class MainActivity extends FlutterActivity {
                 .setMethodCallHandler(
                         (call, result) -> {
                             // Note: this method is invoked on the main thread.
-                            if (call.method.equals("getBatteryLevel")) {
-                                int batteryLevel = getBatteryLevel();
+                            if (call.method.equals("getClassSubjects")) {
+                                String loginResult = getClassSubjects(call.argument("id"), call.argument("pw"));
 
-                                if (batteryLevel != -1) {
-                                    result.success(batteryLevel);
+                                if (loginResult != null) {
+                                    result.success(loginResult);
                                 } else {
-                                    result.error("UNAVAILABLE", "Battery level not available.", null);
+                                    result.error("UNAVAILABLE", "Login Failed.", null);
                                 }
                             } else {
                                 result.notImplemented();
@@ -39,18 +39,15 @@ public class MainActivity extends FlutterActivity {
                 );
     }
 
-    private int getBatteryLevel() {
-        int batteryLevel = -1;
-        if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
-            BatteryManager batteryManager = (BatteryManager) getSystemService(BATTERY_SERVICE);
-            batteryLevel = batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);
-        } else {
-            Intent intent = new ContextWrapper(getApplicationContext()).
-                    registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-            batteryLevel = (intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) * 100) /
-                    intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+    private String getClassSubjects(String id, String pw) {
+        final String _id = "test";
+        final String _pw = "test";
+
+        String loginResult = "Login Failed..";
+        if(id.equals(_id) && pw.equals(_pw)) {
+            loginResult = "Login Success!!";
         }
 
-        return batteryLevel;
+        return loginResult;
     }
 }
